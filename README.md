@@ -16,7 +16,11 @@ files I created for this are:
 -WhiteBell.cs
 -ShootManager.cs
 -edited PlayerController.cs
+-BellFactory.cs
+-BellCreateFactory.cs
 
 Assets are from:
 https://quaternius.com/packs/ultimateplatformer.html
 The license is CC0
+
+View the release to see the project build exe
