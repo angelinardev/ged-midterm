@@ -12,7 +12,7 @@ public class Flag : MonoBehaviour
             //end game
             Debug.Log("You beat the game!");
             Application.Quit();
-            //UnityEditor.EditorApplication.isPlaying = false;
+            UnityEditor.EditorApplication.isPlaying = false;
         }
     }
 }

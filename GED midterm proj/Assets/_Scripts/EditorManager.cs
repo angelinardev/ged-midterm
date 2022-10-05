@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class EditorManager : MonoBehaviour
 {
+    
+    public static EditorManager instance;
     PlayerAction inputAction;
 
     public Camera mainCam;
@@ -13,10 +15,10 @@ public class EditorManager : MonoBehaviour
     public GameObject prefab1;
     public GameObject prefab2;
 
-    GameObject item;
+    public GameObject item;
 
     public bool editorMode = false;
-    bool instantiated = false;
+    public bool instantiated = false;
 
     Vector3 mousePos;
 
@@ -24,9 +26,16 @@ public class EditorManager : MonoBehaviour
 
     ICommand command;
 
+    UIManager ui;
+
     // Start is called before the first frame update
     void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        
         inputAction = PlayerInputController.controller.inputAction;
         inputAction.Editor.EnableEditor.performed += cntxt => SwitchCamera();
 
@@ -36,12 +45,17 @@ public class EditorManager : MonoBehaviour
 
         mainCam.enabled = true;
         editorCam.enabled = false;
+
+        ui = GetComponent<UIManager>();
     }
 
     private void SwitchCamera()
     {
         mainCam.enabled = !mainCam.enabled;
         editorCam.enabled = !editorCam.enabled;
+
+        ui.ToggleEditorUI();
+
     }
     private void AddItem(int itemId)
     {

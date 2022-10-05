@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
 
     private bool hasKey = false;
 
+    public float shootSpeed = 1f;
+
     public void SetKey(bool state)
     {
         hasKey = state;
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
         inputAction.Player.Jump.performed += cntxt => Jump();
 
-        inputAction.Player.Shoot.performed += cntxt => Shoot();
+        inputAction.Player.Shoot.performed += cntxt => StartCoroutine(ShootNew());
 
         rb = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>();
@@ -90,9 +92,14 @@ public class PlayerController : MonoBehaviour
     {
         Rigidbody bulletRb = Instantiate(bullet, projetilePos.position, Quaternion.identity).GetComponent<Rigidbody>();
         bulletRb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-        bulletRb.AddForce(transform.up * 5f, ForceMode.Impulse);
+        bulletRb.AddForce(transform.up * 3f, ForceMode.Impulse);
     }
 
+     IEnumerator ShootNew()
+     {
+        yield return new WaitForSeconds(shootSpeed);
+        Shoot();
+     }
 
 
     // Update is called once per frame
